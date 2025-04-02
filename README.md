@@ -149,3 +149,49 @@ yinsenho@cherry-ai.com
 # ⭐️ Star History
 
 [![Star History Chart](https://api.star-history.com/svg?repos=kangfenmao/cherry-studio&type=Timeline)](https://star-history.com/#kangfenmao/cherry-studio&Timeline)
+
+## 常见问题解决
+
+### 1. 找不到 @libsql/darwin-arm64 模块
+
+如果在 Apple Silicon (ARM64) Mac 上运行时遇到以下错误：
+
+```
+Error: Cannot find module '@libsql/darwin-arm64'
+```
+
+可能的解决方案：
+
+#### 方案1：如果您的 Node.js 是 ARM64 版本
+```bash
+yarn add @libsql/darwin-arm64
+```
+
+#### 方案2：如果您的 Node.js 是 x64 版本 (通过 Rosetta 2 运行)
+首先检查您的 Node.js 架构：
+```bash
+node -p "process.arch + ' / ' + process.platform"
+```
+
+如果输出显示 `x64 / darwin`，那么您需要：
+```bash
+npm install @libsql/darwin-x64@0.4.4 --force
+```
+
+然后修改 `node_modules/libsql/index.js` 文件，在 requireNative 函数中添加以下代码：
+```javascript
+// 在 Mac 上强制使用 darwin-x64，因为我们的 Node.js 是 x64 版本
+if (process.platform === 'darwin' && process.arch === 'x64') {
+  return require('@libsql/darwin-x64');
+}
+```
+
+#### 最佳长期解决方案
+安装与您的 Mac 架构匹配的 Node.js 版本：
+- 访问 https://nodejs.org/en/download/
+- 下载 macOS Installer (ARM64)
+- 安装后重新设置项目
+
+### 2. Yarn 版本问题
+
+如果遇到 "This project's package.json defines packageManager: yarn@4.6.0" 错误，请确保按照上述步骤启用 Corepack 并激活正确的 Yarn 版本。
