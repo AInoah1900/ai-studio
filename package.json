@@ -65,6 +65,7 @@
     "@electron/notarize": "^2.5.0",
     "@google/generative-ai": "^0.24.0",
     "@langchain/community": "^0.3.36",
+    "@libsql/darwin-arm64": "^0.5.4",
     "@notionhq/client": "^2.2.15",
     "@tryfabric/martian": "^1.2.4",
     "@types/react-infinite-scroll-component": "^5.0.0",
