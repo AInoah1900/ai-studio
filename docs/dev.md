@@ -9,7 +9,7 @@
 ### Install
 
 ```bash
-yarn install
+yarn
 ```
 
 ### Development
